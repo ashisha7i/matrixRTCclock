@@ -58,3 +58,15 @@ jobs:
           git add docs/merged-firmware-blink-on.bin docs/merged-firmware-blink-off.bin
           git diff --cached --quiet || git commit -m "chore: update firmware binaries [skip ci]"
           git push
+
+      - name: Inject build info
+        run: |
+          EPOCH=$(date +%s)
+          sed -i "s|<!-- BUILD_INFO -->|\&copy; PitStop3D &bull; Build ${EPOCH}|" docs/index.html
+
+      - name: Deploy to Surge
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: |
+          npm install -g surge
+          surge docs p3d-tetris-clock-setter.surge.sh
