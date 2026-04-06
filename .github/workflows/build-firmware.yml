@@ -62,7 +62,7 @@ jobs:
       - name: Inject build info
         run: |
           EPOCH=$(date +%s)
-          sed -i "s|<!-- BUILD_INFO -->|\&copy; PitStop3D &bull; Build ${EPOCH}|" docs/index.html
+          sed -i "s|<!-- BUILD_INFO -->|© PitStop3D • Build ${EPOCH}|" docs/index.html
 
       - name: Deploy to Surge
         env:
